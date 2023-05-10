@@ -37,7 +37,8 @@ Kp = -5;  % The proportional gain
 
 closed_loop = (Kp*s+Kp*24)/(s^2+(Kp-26)*s+(144+24*Kp));
 pole(closed_loop)
-%% We can plot the poles of this system as a function of the proportional gain
+%% P-control stability
+% We can plot the poles of this system as a function of the proportional gain
 % we need to plot the roots of the polynomial:
 %%
 % $$ s^2+(Kp-26)s+(144+24)Kp $$

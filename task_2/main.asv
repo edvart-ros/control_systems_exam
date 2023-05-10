@@ -58,7 +58,7 @@ title('Step Response with Different Kp');
 legend('Kp = 50', 'Kp = 110', 'Kp = 170', 'Kp = 200');
 %%
 % Increasing the proportional gain results in a shorter rise time, and a smaller steady state error. 
-% However, we cannot completely eliminate the steady state error completely, without introducing an integral term.
+% However, we cannot completely eliminate the overshoot, decaying oscillation and steady state error *completely*
 %% P-control stability
 % We can also plot the poles of this system as a function of the proportional gain $K_p$
 % The poles are given by the roots of the polynomial in the denominator of our transfer function:
@@ -146,13 +146,35 @@ SS_error = abs(1-y(end));
 
 
 %%
-% Thus we have verified that our control system is stable and reaches a steady state error of 3.89%. We have significant overshoot here,
-% which could be mitigated by incorporating a derivative term (PD control)
-% We can also check that our simulink model agrees with our matlab simulations.
+% Thus we have verified that our control system is stable and reaches a steady state error of 3.89%
+% We can also check that our simulink model agrees with our matlab simulations (see images).
 
-%% Simulink step response
-% Both the original simulink block diagram and the reduced transfer function show the same step response as the matlab code:
-%
-% <<final_step_response.png>>
-%
 
+%% LQR comparison
+% For fun, we can look at the optimal gain for our system, relative to our chosen state and control cost using the linear quadratic regulator.
+% This gain K minimizes the quadratic cost function:
+%%
+% $$\int_0^{\infty} (x^TQx + u^TRu) dt $$
+%%
+% the Q and R matrices are weighting matrices which define how much we punish state errors and control inputs.
+% We can vary Q and R to make an aggressive controller (large Q) or a less aggressive, economical controller (large R).
+% In our case, the cost function becomes:
+%%
+% $$\int_0^{\infty} (\theta_c - \theta)^TQ(\theta_c - \theta) + \delta_c^TR\delta_c) dt $$
+%%
+% This function exists in the time domain, so we need to convert our model into a state space model.
+% We could do this by taking the inverse laplace transform, but I use matlab's state spacefunction instead.
+s = tf('s');
+sys = (s+24)/((s-8)*(s-18)); %plant
+R = 1;
+Q = 100;
+
+%% 
+% To use lqr, we need to get the system model in state space form first:
+sys_ss = ss(sys)
+
+%%
+% We are now weighting the state deviation cost one hundred times more than the control input cost, 
+% which should give a fairly aggressive controller.
+
+lqr(sys, Q, R)

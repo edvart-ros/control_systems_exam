@@ -146,7 +146,11 @@ SS_error = abs(1-y(end));
 
 
 %%
-% Thus we have verified that our control system is stable and reaches a steady state error of 3.89%. We have significant overshoot here,
+% Thus we have verified that our control system is stable and reaches a steady state error of 3.89%, with a steady state value of
+%%
+% $$(1-\frac[3.89}{100} = 0.9611 $$
+%%
+% We do have some overshoot here,
 % which could be mitigated by incorporating a derivative term (PD control)
 % We can also check that our simulink model agrees with our matlab simulations.
 

@@ -29,7 +29,7 @@ Analysis of piloted airplaine stability.
    \item Propotional control transfer function
    \item P-control stability
    \item Kp-stable values
-   \item Control system step response
+   \item Control system step response and steady-state error
    \item Simulink step response
 \end{itemize}
 
@@ -76,7 +76,12 @@ The open-loop system does not satisfy BIBO, and requires closed loop control to 
 \subsection*{Propotional control transfer function}
 
 \begin{par}
-We add a proportional control and find an equivalent transfer function for the whole system. I use the simulink block diagram to help find the expression for the new system.
+We add a proportional control and find an equivalent transfer function for the whole system. I use the simulink block diagram to help find the expression for the new system:
+\end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{tf_with_proportional_gain.png}
+
 \end{par} \vspace{1em}
 \begin{par}
 $$ \theta = K_p \theta_c H(s) - K_p\theta H(s)$$
@@ -234,7 +239,7 @@ pzplot(closed_loop);
 \includegraphics [width=4in]{main_06.eps}
 
 
-\subsection*{Control system step response}
+\subsection*{Control system step response and steady-state error}
 
 \begin{par}
 We have verified that the poles of our new system are all negative real part. This means the system stable, and we can verify this by viewing the step response of the closed loop system:
@@ -243,11 +248,28 @@ We have verified that the poles of our new system are all negative real part. Th
 step(closed_loop)
 [y,t]=step(closed_loop); %save the output values to check steady state
 SS_error = abs(1-y(end));
+%verifying that the new system is stable
+isstable(closed_loop)
 \end{verbatim}
 
+        \color{lightgray} \begin{verbatim}
+ans =
+
+  logical
+
+   1
+
+\end{verbatim} \color{black}
+    
 \includegraphics [width=4in]{main_07.eps}
 \begin{par}
-Thus we have verified that our control system is stable and reaches a steady state error of 3.89\%. We have significant overshoot here, which could be mitigated by incorporating a derivative term (PD control) We can also check that our simulink model agrees with our matlab simulations.
+Thus we have verified that our control system is stable and reaches a steady state error of 3.89\%, with a steady state value of
+\end{par} \vspace{1em}
+\begin{par}
+$$(1-\frac{3.89}{100}) = 0.9611 $$
+\end{par} \vspace{1em}
+\begin{par}
+We do have some overshoot here, which could be mitigated by incorporating a derivative term (PD control) We can also check that our simulink model agrees with our matlab simulations.
 \end{par} \vspace{1em}
 
 
@@ -255,6 +277,11 @@ Thus we have verified that our control system is stable and reaches a steady sta
 
 \begin{par}
 Both the original simulink block diagram and the reduced transfer function show the same step response as the matlab code:
+\end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{eq_block_diagram.png}
+
 \end{par} \vspace{1em}
 \begin{par}
 

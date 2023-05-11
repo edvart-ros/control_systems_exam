@@ -28,7 +28,13 @@ step(sys);
 
 %% Propotional control transfer function
 % We add a proportional control and find an equivalent transfer function for the whole system.
-% I use the simulink block diagram to help find the expression for the new system.
+% I use the simulink block diagram to help find the expression for the new system:
+%%
+% 
+% <<tf_with_proportional_gain.png>>
+% 
+
+
 %%
 % $$ \theta = K_p \theta_c H(s) - K_p\theta H(s)$$
 %%
@@ -136,19 +142,21 @@ real(pole(closed_loop))
 close;
 pzplot(closed_loop);
 
-%% Control system step response
+%% Control system step response and steady-state error
 % We have verified that the poles of our new system are all negative real part. This means the system stable, and we can verify this
 % by viewing the step response of the closed loop system:
 
 step(closed_loop)
 [y,t]=step(closed_loop); %save the output values to check steady state
 SS_error = abs(1-y(end));
+%verifying that the new system is stable
+isstable(closed_loop)
 
 
 %%
 % Thus we have verified that our control system is stable and reaches a steady state error of 3.89%, with a steady state value of
 %%
-% $$(1-\frac[3.89}{100} = 0.9611 $$
+% $$(1-\frac{3.89}{100}) = 0.9611 $$
 %%
 % We do have some overshoot here,
 % which could be mitigated by incorporating a derivative term (PD control)
@@ -156,6 +164,11 @@ SS_error = abs(1-y(end));
 
 %% Simulink step response
 % Both the original simulink block diagram and the reduced transfer function show the same step response as the matlab code:
+%%
+% 
+% <<eq_block_diagram.png>>
+% 
+%%
 %
 % <<final_step_response.png>>
 %

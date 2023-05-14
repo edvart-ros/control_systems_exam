@@ -5,10 +5,10 @@
 %%
 % $$ \frac{d}{dt}H = \frac{bV-a\sqrt{H}}{A} $$
 %%
-% This ode is non-linear in \sqrt{H}. However, we can approximate this by a
-% first order taylor expansion/linearization:
+% This ode is non-linear in $\sqrt{H}$. However, we can approximate this by a
+% first order taylor expansion/linearization in a neighbourhood $H_0 + \hat{H}$ around the stationary point $H_0$:
 %%
-% $$ \sqrt{H_0 + \hat{H}} = \sqrt{H_0} + \frac{1}{2\sqrt{H_0}}\cdot (H-H_o) $$
+% $$ \sqrt{H_0 + \hat{H}} \approx \sqrt{H_0} + \frac{1}{2\sqrt{H_0}}\cdot (H-H_o) $$
 %%
 % With this linearization we arrive at the linear ODE:
 %% 

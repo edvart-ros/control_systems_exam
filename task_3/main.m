@@ -217,7 +217,7 @@ delta_t = sim_time/timesteps(1);
 
 for k=1:length(t)
     draw_pendulum(y(k,:));
-    %pause(delta_t);
+    pause(delta_t);
 end
 %% LQR method
 % We can compute other K-vectors by defining Q and R matrices, which weight the cost of state errors and control inputs.
@@ -277,7 +277,7 @@ for k=1:length(t)
     draw_pendulum_2x2(y_lqr2(k,:), 2);
     draw_pendulum_2x2(y_lqr3(k,:), 3);
     draw_pendulum_2x2(y_lqr4(k,:), 4);
-    %pause(delta_t);
+    pause(delta_t);
 end
 
 

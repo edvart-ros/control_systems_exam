@@ -106,7 +106,7 @@ legend;
 
 
 %% Kp-stable values
-% From inspecting the plot we see that both poles have negative real part when $K_p > 26$.
+% From inspecting the plot we see that both poles/eigenvalues have negative real part when $K_p > 26$.
 %
 % For the gain, i somewhat arbitrarily chose $Kp = 147.3$, which is where the poles start to separate again:
 close;
@@ -125,9 +125,37 @@ plot(Kp, (-(Kp-26)+sqrt((Kp-26).^2-4*(144+24.*Kp)))/2, 'marker', '^', 'Color', '
 xlabel('Kp'); ylabel('Real Part of Roots');
 title('Optimal poles');
 legend;
+%%
+% We can also show this mathematically by finding the Kp
+% values where all our poles are in the negative half-plane (negative real part). To do this we look we analyze the denominator of our transfer function with the quadratic formula.
+%% 
+% equation:
+%%
+% $$ s^2 + (K_p-26)s+(144+24Kp)= 0$$
+%% 
+% We need the real parts of the roots to both be negative. The roots are found by the quadratic equation:
+%%
+% $$ \frac{-(K_p-26)\pm \sqrt{(K_p-26)^2-4(144+24K_p)}}{2} $$
+%%
+% The strictly real part is $\frac{26-K_p}{2}$.
+% If the discriminant $(K_p-26)^2-4(144+24K_p)$ is negative or zero, then the real part is just $\frac{26-K_p}{2}$, and our system is obviously stable for all $K_p > 26$.
+% If the discriminant is positive however, the root will be strictly real, and we need to verify that they are still negative, by checking that 
+%%
+% $$-(K_p-26) > \sqrt{(K_p-26)^2-4(144+24K_p)}, \quad \forall K_p > 26  $$
+%%
+% $$(-K_p+26)^2 > (K_p-26)^2-4(14+24K_p)$$
+%%
+% $${K_p}^2-52K_p+26^2 > K_p^2-52K_p+26^2-576-96K_p $$
+%%
+% $$ 96K_p > 576$$
+%%
+% $$ K_p > 6$$
+%%
+% This inequality will obviously also hold for $K_p > 26$. We have now shown that all the roots have negative real parts for all $K_p > 26$, so that our system is stable. 
+
 
 %%
-% Verifying that Kp = 26 gives us zero-poles
+% Verifying that $Kp = 26$ gives us zero-poles (marginally stable):
 close;
 Kp = 26;
 closed_loop = (Kp*s+Kp*24)/(s^2+(Kp-26)*s+(144+24*Kp));
@@ -158,9 +186,8 @@ isstable(closed_loop)
 %%
 % $$(1-\frac{3.89}{100}) = 0.9611 $$
 %%
-% We do have some overshoot here,
-% which could be mitigated by incorporating a derivative term (PD control)
-% We can also check that our simulink model agrees with our matlab simulations.
+% We do have some overshoot here, and there is also a steady-state error in our system.
+% The overshoot could be compensated for by introducing a derivative term, and the steady-state error could be eliminated by an integral term, giving us a full PID controller.
 
 %% Simulink step response
 % Both the original simulink block diagram and the reduced transfer function show the same step response as the matlab code:

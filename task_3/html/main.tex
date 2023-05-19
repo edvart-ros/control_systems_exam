@@ -14,11 +14,16 @@
 
     
     
+\section*{Task 3}
+
+\begin{par}
+Rotary pendulum analysis and control
+\end{par} \vspace{1em}
+
 \subsection*{Contents}
 
 \begin{itemize}
 \setlength{\itemsep}{-1ex}
-   \item Rotary pendulum analysis and control
    \item From state space to transfer function
    \item Computing $H(s)$
    \item Verifying the two transfer functions
@@ -32,10 +37,6 @@
    \item Pendulum animation
    \item LQR method
 \end{itemize}
-
-
-\subsection*{Rotary pendulum analysis and control}
-
 \begin{verbatim}
 XX = 24;
 YY = 08;
@@ -169,7 +170,7 @@ H_manual
 H_manual =
  
   From input to output...
-                  921 s^2 - 1.178e-10 s - 1.915e05
+                  921 s^2 - 1.243e-10 s - 1.915e05
    1:  ------------------------------------------------------
        s^4 - 1.495e-14 s^3 - 782 s^2 + 6.066e-13 s - 1.97e-29
  
@@ -216,7 +217,7 @@ The manually computed and tf(sys\_ss) transfer functions seem to behave the same
 \subsection*{Plant transfer functions}
 
 \begin{par}
-Before I move on, i remove the extremely small coefficients in the transfer functions, as they have virtually no impact) I verified this by checking that the poles didnt change.
+Before I move on, i remove the extremely small coefficients in the transfer functions, as they have virtually no impact. I verified this by checking that the poles didn't change.
 \end{par} \vspace{1em}
 \begin{verbatim}
 close;
@@ -418,7 +419,7 @@ delta_t = sim_time/timesteps(1);
 
 for k=1:length(t)
     draw_pendulum(y(k,:));
-    %pause(delta_t);
+    pause(delta_t);
 end
 \end{verbatim}
 
@@ -445,34 +446,34 @@ sim_time = 3;
 % Doesn't care about state, terrible control:
 Q = 0.0001*eye(4);
 R = 10;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr1 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr1 = ss(A_CL_lqr, B, C, D);
 [y_lqr1, t] = step(10*sys_lqr1, sim_time);
 
 
 % Aggressive controller
 Q = 10000*eye(4);
 R = 10;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr2 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr2 = ss(A_CL_lqr, B, C, D);
 [y_lqr2, t] = step(10*sys_lqr2, sim_time);
 
 % Somewhere in between:
 Q = 100*eye(4);
 R = 10;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr3 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr3 = ss(A_CL_lqr, B, C, D);
 [y_lqr3, t] = step(10*sys_lqr3, sim_time);
 
 % Lazy/economical controller:
 Q = 10*eye(4);
 R = 100;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr4 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr4 = ss(A_CL_lqr, B, C, D);
 [y_lqr4, t] = step(10*sys_lqr4, sim_time);
 
 
@@ -483,7 +484,7 @@ for k=1:length(t)
     draw_pendulum_2x2(y_lqr2(k,:), 2);
     draw_pendulum_2x2(y_lqr3(k,:), 3);
     draw_pendulum_2x2(y_lqr4(k,:), 4);
-    %pause(delta_t);
+    pause(delta_t);
 end
 \end{verbatim}
 

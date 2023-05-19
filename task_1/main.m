@@ -27,8 +27,37 @@
 %
 %% 
 % Our state space consists of a one-dimensional state vector H and a one-dimensional control vector V
+
+%% Simulink implementation
+%%
+% High-level overview of non-linear system, linear TF system and linear ODE system.
+%%
+%
+% <<high_level_blocks.png>>
+%
+%%
+% Open-loop non-linear system:
+%%
+%
+% <<open_loop_nonlinear.png>>
+%
+%%
+% Open-loop linear system:
+%%
+%
+% <<open_loop_linear.png>>
+%
+%%
+% Plotting the responses of each system (input 10, initial output 9):
+%%
+%
+% <<open_loop_comparison.png>>
+%
+%%
+% As can be seen, the TF and ODE implementation are identical (up to number rounding), while the linear approximations become less and less accurate relative to the true non-linear system.
+
 %% Simulation of open loop system
-% For fun, we can simulate the non-linear and linearized differential equations to inspect the accuracy
+% For fun, we can simulate the non-linear and linearized differential equations to inspect the accuracy of the linear approximation.
 % To do this I use matlab's ode45 which can simulate most ordinary differential equations
 % The non-linear and linear ODE's are defined in tank_system_linear.m and tank_system_nonlinear.m, respectively.
 
@@ -53,7 +82,7 @@ xlim(timespan);       ylim([0,20]);
 xlabel('Time (s)');   ylabel('Height (H)');
 title('Non-linear (solid) vs linearized (stippled)');
 %% Transfer function response
-% The transfer function is determined by taking the laplace transform of the homogeneous linear ODE:
+% The transfer function is determined by taking the laplace transform of the homogeneous linear ODE, which after rounding gives:
 %%
 % $$ \frac{H(s)}{V(s)} = \frac{\frac{b}{A}}{s+0.16\frac{a}{A}}$$
 
@@ -127,7 +156,19 @@ grid on;
 %% Applying the control to the non-linear and linearized plants in simulink
 % With our conservative gains [Kp, Ki, Kd] = [15, 5, 1] We achieved a nice response.
 %
-% Now, I plot the response for a setpoint of 10 an an initial tank level of 9, for both the non-linear and linear systems.
+% Here I plot the response for a setpoint of 10 an an initial tank level of 9, for both the non-linear and linear systems.
 %
-% See simulink scope plots!
 
+%%
+%
+% <<high_level_closed_loop.png>>
+%
+%%
+%
+% <<closed_loop_response.png>>
+%
+%%
+% The response of the linear system here is not just a scaled version of the closed_loop unit step response, since the setpoint and initial conditions arent just scaled versions of the unit step (theres a translation in the setpoint).
+% If we instead  plotted the response of a setpoint of 10 and an initial condition of 0, the response of the linearized system would be identical to a scaled version of the unit step response.
+
+% We also see again that the linear approximation starts out good, but diverges from the true state of the system as we get further away from the linearization point.

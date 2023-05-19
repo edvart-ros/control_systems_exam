@@ -26,6 +26,7 @@ Analysis of non-linear and linearized water tank model with and without PID cont
 \setlength{\itemsep}{-1ex}
    \item Model and linearization
    \item State Space Representation
+   \item Simulink implementation
    \item Simulation of open loop system
    \item Transfer function response
    \item Step response with control
@@ -74,10 +75,49 @@ Our state space consists of a one-dimensional state vector H and a one-dimension
 \end{par} \vspace{1em}
 
 
+\subsection*{Simulink implementation}
+
+\begin{par}
+High-level overview of non-linear system, linear TF system and linear ODE system.
+\end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{high_level_blocks.png}
+
+\end{par} \vspace{1em}
+\begin{par}
+Open-loop non-linear system:
+\end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{open_loop_nonlinear.png}
+
+\end{par} \vspace{1em}
+\begin{par}
+Open-loop linear system:
+\end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{open_loop_linear.png}
+
+\end{par} \vspace{1em}
+\begin{par}
+Plotting the responses of each system (input 10, initial output 9):
+\end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{open_loop_comparison.png}
+
+\end{par} \vspace{1em}
+\begin{par}
+As can be seen, the TF and ODE implementation are identical (up to number rounding), while the linear approximations become less and less accurate relative to the true non-linear system.
+\end{par} \vspace{1em}
+
+
 \subsection*{Simulation of open loop system}
 
 \begin{par}
-For fun, we can simulate the non-linear and linearized differential equations to inspect the accuracy To do this I use matlab's ode45 which can simulate most ordinary differential equations The non-linear and linear ODE's are defined in tank\_system\_linear.m and tank\_system\_nonlinear.m, respectively.
+For fun, we can simulate the non-linear and linearized differential equations to inspect the accuracy of the linear approximation. To do this I use matlab's ode45 which can simulate most ordinary differential equations The non-linear and linear ODE's are defined in tank\_system\_linear.m and tank\_system\_nonlinear.m, respectively.
 \end{par} \vspace{1em}
 \begin{verbatim}
 A = 24; b = 8; a = 18; %water tank parameters
@@ -111,7 +151,7 @@ title('Non-linear (solid) vs linearized (stippled)');
 \subsection*{Transfer function response}
 
 \begin{par}
-The transfer function is determined by taking the laplace transform of the homogeneous linear ODE:
+The transfer function is determined by taking the laplace transform of the homogeneous linear ODE, which after rounding gives:
 \end{par} \vspace{1em}
 \begin{par}
 $$ \frac{H(s)}{V(s)} = \frac{\frac{b}{A}}{s+0.16\frac{a}{A}}$$
@@ -197,8 +237,8 @@ grid on;
 \end{verbatim}
 
         \color{lightgray} \begin{verbatim}Overshoot: 2.95%
-Rise Time: 0.49 s
-Settling Time: 2.95 s
+Rise Time: 0.51 s
+Settling Time: 3.76 s
 \end{verbatim} \color{black}
     
 \includegraphics [width=4in]{main_04.eps}
@@ -210,11 +250,24 @@ Settling Time: 2.95 s
 With our conservative gains [Kp, Ki, Kd] = [15, 5, 1] We achieved a nice response.
 \end{par} \vspace{1em}
 \begin{par}
-Now, I plot the response for a setpoint of 10 an an initial tank level of 9, for both the non-linear and linear systems.
+Here I plot the response for a setpoint of 10 an an initial tank level of 9, for both the non-linear and linear systems.
 \end{par} \vspace{1em}
 \begin{par}
-See simulink scope plots!
+
+\includegraphics [width=4in]{high_level_closed_loop.png}
+
 \end{par} \vspace{1em}
+\begin{par}
+
+\includegraphics [width=4in]{closed_loop_response.png}
+
+\end{par} \vspace{1em}
+\begin{par}
+The response of the linear system here is not just a scaled version of the closed\_loop unit step response, since the setpoint and initial conditions arent just scaled versions of the unit step (theres a translation in the setpoint). If we instead  plotted the response of a setpoint of 10 and an initial condition of 0, the response of the linearized system would be identical to a scaled version of the unit step response.
+\end{par} \vspace{1em}
+\begin{verbatim}
+% We also see again that the linear approximation starts out good, but diverges from the true state of the system as we get further away from the linearization point.
+\end{verbatim}
 
 
 

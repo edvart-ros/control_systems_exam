@@ -170,7 +170,7 @@ legend;
 \subsection*{Kp-stable values}
 
 \begin{par}
-From inspecting the plot we see that both poles have negative real part when $K_p > 26$.
+From inspecting the plot we see that both poles/eigenvalues have negative real part when $K_p > 26$.
 \end{par} \vspace{1em}
 \begin{par}
 For the gain, i somewhat arbitrarily chose $Kp = 147.3$, which is where the poles start to separate again:
@@ -199,7 +199,43 @@ legend;
     
 \includegraphics [width=4in]{main_05.eps}
 \begin{par}
-Verifying that Kp = 26 gives us zero-poles
+We can also show this mathematically by finding the Kp values where all our poles are in the negative half-plane (negative real part). To do this we look we analyze the denominator of our transfer function with the quadratic formula.
+\end{par} \vspace{1em}
+\begin{par}
+equation:
+\end{par} \vspace{1em}
+\begin{par}
+$$ s^2 + (K_p-26)s+(144+24Kp)= 0$$
+\end{par} \vspace{1em}
+\begin{par}
+We need the real parts of the roots to both be negative. The roots are found by the quadratic equation:
+\end{par} \vspace{1em}
+\begin{par}
+$$ \frac{-(K_p-26)\pm \sqrt{(K_p-26)^2-4(144+24K_p)}}{2} $$
+\end{par} \vspace{1em}
+\begin{par}
+The strictly real part is $\frac{26-K_p}{2}$. If the discriminant $(K_p-26)^2-4(144+24K_p)$ is negative or zero, then the real part is just $\frac{26-K_p}{2}$, and our system is obviously stable for all $K_p > 26$. If the discriminant is positive however, the root will be strictly real, and we need to verify that they are still negative, by checking that
+\end{par} \vspace{1em}
+\begin{par}
+$$-(K_p-26) > \sqrt{(K_p-26)^2-4(144+24K_p)}, \quad \forall K_p > 26  $$
+\end{par} \vspace{1em}
+\begin{par}
+$$(-K_p+26)^2 > (K_p-26)^2-4(14+24K_p)$$
+\end{par} \vspace{1em}
+\begin{par}
+$${K_p}^2-52K_p+26^2 > K_p^2-52K_p+26^2-576-96K_p $$
+\end{par} \vspace{1em}
+\begin{par}
+$$ 96K_p > 576$$
+\end{par} \vspace{1em}
+\begin{par}
+$$ K_p > 6$$
+\end{par} \vspace{1em}
+\begin{par}
+This inequality will obviously also hold for $K_p > 26$. We have now shown that all the roots have negative real parts for all $K_p > 26$, so that our system is stable.
+\end{par} \vspace{1em}
+\begin{par}
+Verifying that $Kp = 26$ gives us zero-poles (marginally stable):
 \end{par} \vspace{1em}
 \begin{verbatim}
 close;
@@ -269,7 +305,7 @@ Thus we have verified that our control system is stable and reaches a steady sta
 $$(1-\frac{3.89}{100}) = 0.9611 $$
 \end{par} \vspace{1em}
 \begin{par}
-We do have some overshoot here, which could be mitigated by incorporating a derivative term (PD control) We can also check that our simulink model agrees with our matlab simulations.
+We do have some overshoot here, and there is also a steady-state error in our system. The overshoot could be compensated for by introducing a derivative term, and the steady-state error could be eliminated by an integral term, giving us a full PID controller.
 \end{par} \vspace{1em}
 
 

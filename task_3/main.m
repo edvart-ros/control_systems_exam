@@ -1,4 +1,6 @@
-%% Rotary pendulum analysis and control
+%% Task 3 
+% Rotary pendulum analysis and control
+%%
 XX = 24;
 YY = 08;
 ZZ = 18;
@@ -239,34 +241,34 @@ sim_time = 3;
 % Doesn't care about state, terrible control:
 Q = 0.0001*eye(4);
 R = 10;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr1 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr1 = ss(A_CL_lqr, B, C, D);
 [y_lqr1, t] = step(10*sys_lqr1, sim_time);
 
 
 % Aggressive controller
 Q = 10000*eye(4);
 R = 10;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr2 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr2 = ss(A_CL_lqr, B, C, D);
 [y_lqr2, t] = step(10*sys_lqr2, sim_time);
 
 % Somewhere in between:
 Q = 100*eye(4);
 R = 10;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr3 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr3 = ss(A_CL_lqr, B, C, D);
 [y_lqr3, t] = step(10*sys_lqr3, sim_time);
 
 % Lazy/economical controller:
 Q = 10*eye(4);
 R = 100;
-K = lqr(sys_ss, Q, R);
-A_CL = A-B*K;
-sys_lqr4 = ss(A_CL, B, C, D);
+K_lqr = lqr(sys_ss, Q, R);
+A_CL_lqr = A-B*K_lqr;
+sys_lqr4 = ss(A_CL_lqr, B, C, D);
 [y_lqr4, t] = step(10*sys_lqr4, sim_time);
 
 

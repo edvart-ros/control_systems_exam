@@ -142,11 +142,6 @@ xlabel('Time (s)');   ylabel('Height (H)');
 title('Non-linear (solid) vs linearized (stippled)');
 \end{verbatim}
 
-        \color{lightgray} \begin{verbatim}Warning: Imaginary parts of complex X and/or Y arguments ignored. 
-\end{verbatim} \color{black}
-    
-\includegraphics [width=4in]{main_01.eps}
-
 
 \subsection*{Transfer function response}
 
@@ -187,8 +182,6 @@ xlim(step_timespan);       ylim([0,3]);
 xlabel('Time (s)');   ylabel('Height (H)');
 legend('Location', 'northwest');
 \end{verbatim}
-
-\includegraphics [width=4in]{main_02.eps}
 \begin{par}
 Since the system is a first-order linear system without disturbances, it behaves nicely and doesn't reach any oscillations.
 \end{par} \vspace{1em}
@@ -207,8 +200,6 @@ A = 24; b = 8; a = 18; %water tank parameters
 tf_linear = (b/A)/(s+1/(2*sqrt(10))*(a/A)); %defining transfer function as given in the task
 step(tf_linear);
 \end{verbatim}
-
-\includegraphics [width=4in]{main_03.eps}
 \begin{par}
 Now we tune all the gains to achieve the desired response
 \end{par} \vspace{1em}
@@ -235,13 +226,6 @@ fprintf('Rise Time: %.2f s\n', rise_time);
 fprintf('Settling Time: %.2f s\n', settling_time);
 grid on;
 \end{verbatim}
-
-        \color{lightgray} \begin{verbatim}Overshoot: 2.95%
-Rise Time: 0.51 s
-Settling Time: 3.76 s
-\end{verbatim} \color{black}
-    
-\includegraphics [width=4in]{main_04.eps}
 
 
 \subsection*{Applying the control to the non-linear and linearized plants in simulink}

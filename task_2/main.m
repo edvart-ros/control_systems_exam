@@ -176,7 +176,7 @@ pzplot(closed_loop);
 
 step(closed_loop)
 [y,t]=step(closed_loop); %save the output values to check steady state
-SS_error = abs(1-y(end));
+SS_error = abs(1-y(end))
 %verifying that the new system is stable
 isstable(closed_loop)
 

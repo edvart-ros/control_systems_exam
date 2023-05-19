@@ -1,0 +1,549 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Reguleringsteknikk eksamen</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-05-19"><meta name="DC.source" content="main_shortened.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Reguleringsteknikk eksamen</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Task 1</a></li><li><a href="#2">a) State-space representation</a></li><li><a href="#8">State Space Representation</a></li><li><a href="#13">b) simulink implementations</a></li><li><a href="#18">c) PID design</a></li><li><a href="#20">c/d) Applying the control to the non-linear and linearized plants in simulink</a></li><li><a href="#24">Task 2</a></li><li><a href="#25">a) poles and zeros</a></li><li><a href="#27">b) Step response</a></li><li><a href="#28">c) Stability</a></li><li><a href="#29">d) P-control equivalent transfer function</a></li><li><a href="#38">e) Kp-stable values</a></li><li><a href="#50">f/g/h)</a></li><li><a href="#53">i)</a></li><li><a href="#54">Task 3</a></li><li><a href="#55">a/b) System transfer functions</a></li><li><a href="#65">c) Plant step response</a></li><li><a href="#66">d) poles</a></li><li><a href="#74">f) new A matrix</a></li><li><a href="#83">g) step responses</a></li></ul></div><h2 id="1">Task 1</h2><h2 id="2">a) State-space representation</h2><p>Differential equation describing the tank water level:</p><p><img src="main_shortened_eq16792081932982201650.png" alt="$$ \frac{d}{dt}H = \frac{bV-a\sqrt{H}}{A} $$"></p><p>This ode is non-linear in <img src="main_shortened_eq16828787010112258749.png" alt="$\sqrt{H}$">. However, we can approximate this by a first order taylor expansion/linearization in a neighbourhood <img src="main_shortened_eq05869176300201568834.png" alt="$H_0 + \hat{H}$"> around the stationary point <img src="main_shortened_eq16701808279315941168.png" alt="$H_0$">:</p><p><img src="main_shortened_eq08927562368181889767.png" alt="$$ \sqrt{H_0 + \hat{H}} \approx \sqrt{H_0} + \frac{1}{2\sqrt{H_0}}\cdot (H-H_o) $$"></p><p>With this linearization we arrive at the linear ODE:</p><p><img src="main_shortened_eq05164274900553850249.png" alt="$$ \frac{dH}{dt} =\frac{b}{A} V - \frac{a}{2A} \sqrt{H_0} (H-H_0) - \frac{a\sqrt{H_0}}{A} $$"></p><h2 id="8">State Space Representation</h2><p>We can find the state space representation of this system (ignoring the non-homogeneous part):</p><p><img src="main_shortened_eq12182016553611307305.png" alt="$$ \frac{d}{dt} H = \left[\matrix{ - \frac{a}{2A \sqrt{H_0}}} \right] H + \left[\matrix{ \frac{b}{A}} \right]V $$"></p><p>Alternatively, with our constants and linearization point:</p><p><img src="main_shortened_eq00345194380832650973.png" alt="$$ \dot{H} = \left[\matrix{ - \frac{3\sqrt{10}}{80}} \right] H + \left[\matrix{ \frac{1}{3}} \right]V $$"></p><p>Our state space consists of a one-dimensional state vector H and a one-dimensional control vector V</p><h2 id="13">b) simulink implementations</h2><p>Open-loop non-linear system:</p><p><img vspace="5" hspace="5" src="open_loop_nonlinear.png" alt=""> </p><p>Open-loop linear system:</p><p><img vspace="5" hspace="5" src="open_loop_linear.png" alt=""> </p><h2 id="18">c) PID design</h2><p>Now we develop a complete PID controller for our plant using the transfer function of the linearized model.</p><pre class="codeinput">close;
+s = tf(<span class="string">'s'</span>);
+
+A = 24; b = 8; a = 18; <span class="comment">%water tank parameters</span>
+tf_linear = (b/A)/(s+1/(2*sqrt(10))*(a/A)); <span class="comment">%defining transfer function as given in the task</span>
+step(tf_linear);
+</pre><img vspace="5" hspace="5" src="main_shortened_01.png" alt=""> <p>Now we tune all the gains to achieve the desired response</p><pre class="codeinput">Kp = 15;
+Ki = 5;
+Kd = 1;
+
+H = tf_linear; <span class="comment">%plant transfer function</span>
+C = Kp + Ki/s + Kd*s; <span class="comment">%PID transfer function</span>
+
+CH = C*H; <span class="comment">%closed loop transfer function</span>
+closed_tf = CH/(CH+1);
+step(closed_tf);
+
+info = stepinfo(closed_tf);
+overshoot     = info.Overshoot;
+rise_time     = info.RiseTime;
+settling_time = info.SettlingTime;
+
+<span class="comment">% Display results</span>
+fprintf(<span class="string">'Overshoot: %.2f%%\n'</span>, overshoot);
+fprintf(<span class="string">'Rise Time: %.2f s\n'</span>, rise_time);
+fprintf(<span class="string">'Settling Time: %.2f s\n'</span>, settling_time);
+grid <span class="string">on</span>;
+</pre><pre class="codeoutput">Overshoot: 2.95%
+Rise Time: 0.51 s
+Settling Time: 3.76 s
+</pre><img vspace="5" hspace="5" src="main_shortened_02.png" alt=""> <h2 id="20">c/d) Applying the control to the non-linear and linearized plants in simulink</h2><p>With our conservative gains [Kp, Ki, Kd] = [15, 5, 1] We achieved a nice response.</p><p>Here I plot the response for a setpoint of 10 an an initial tank level of 9, for both the non-linear and linear systems.</p><p><img vspace="5" hspace="5" src="high_level_closed_loop.png" alt=""> </p><p><img vspace="5" hspace="5" src="closed_loop_response.png" alt=""> </p><p>The response of the linear system here is not just a scaled version of the closed_loop unit step response, since the setpoint and initial conditions arent just scaled versions of the unit step (theres a translation in the setpoint). If we instead  plotted the response of a setpoint of 10 and an initial condition of 0, the response of the linearized system would be identical to a scaled version of the unit step response.</p><pre class="codeinput"><span class="comment">% We also see again that the linear approximation starts out good, but diverges from the true state of the system as we get further away from the linearization point.</span>
+</pre><h2 id="24">Task 2</h2><h2 id="25">a) poles and zeros</h2><p>the transfer function, with canard deflection as input and pitch altitude as output, is given as:</p><p><img src="main_shortened_eq09682875150970860724.png" alt="$$ \frac{\theta}{\delta_c} = \frac{s+24}{(s-8)(s-18)} $$"></p><p>This system is clearly unstable, as both poles are positive real numbers (8 and 18). We can verify this by using pzplot and looking at the poles:</p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+sys = (s+24)/((s-8)*(s-18));
+pzplot(sys);
+</pre><img vspace="5" hspace="5" src="main_shortened_03.png" alt=""> <h2 id="27">b) Step response</h2><pre class="codeinput">close;
+step(sys);
+</pre><img vspace="5" hspace="5" src="main_shortened_04.png" alt=""> <h2 id="28">c) Stability</h2><p>The output of our system blows up to infinity, so it is clearly unstable. The open-loop system does not satisfy BIBO, and requires closed loop control to become stable.</p><h2 id="29">d) P-control equivalent transfer function</h2><p>We add a proportional control and find an equivalent transfer function for the whole system. I use the simulink block diagram to help find the expression for the new system:</p><p><img vspace="5" hspace="5" src="tf_with_proportional_gain.png" alt=""> </p><p><img src="main_shortened_eq10617522369821591508.png" alt="$$ \theta = K_p \theta_c H(s) - K_p\theta H(s)$$"></p><p><img src="main_shortened_eq12276267269156562725.png" alt="$$\theta(K_p H(s) + 1) = \theta_c K_p H(s)$$"></p><p><img src="main_shortened_eq11905631165130828381.png" alt="$$\frac{\theta}{\theta_c} = \frac{K_p H(s)}{K_p H(s) + 1}$$"></p><p>I insert the plant model <img src="main_shortened_eq02129195218466959972.png" alt="$H(s)$"> to obtain the full closed loop transfer function:</p><p><img src="main_shortened_eq18023008370852463164.png" alt="$$\frac{\theta}{\theta_c} = \frac{K_p \frac{s+24}{s^2-26+144}}{K_p \frac{s+24}{s^2-26+144} + 1} $$"></p><p>Finally, simplifying the fraction gives:</p><p><img src="main_shortened_eq08667698658435052755.png" alt="$$\frac{\theta}{\theta_c} = \frac{K_p s+ K_p 24}{s^2+(K_p-26)s+(144+24K_p)} $$"></p><h2 id="38">e) Kp-stable values</h2><p>We can show this mathematically by finding the Kp values for which all our poles are in the negative half-plane (negative real part). To do this we look we analyze the denominator of our transfer function with the quadratic formula.</p><p>equation:</p><p><img src="main_shortened_eq06304175482124633160.png" alt="$$ s^2 + (K_p-26)s+(144+24Kp)= 0$$"></p><p>We need the real parts of the roots to both be negative. The roots are found by the quadratic equation:</p><p><img src="main_shortened_eq01073708888089161699.png" alt="$$ \frac{-(K_p-26)\pm \sqrt{(K_p-26)^2-4(144+24K_p)}}{2} $$"></p><p>The strictly real part is <img src="main_shortened_eq17875175006890874484.png" alt="$\frac{26-K_p}{2}$">. If the discriminant <img src="main_shortened_eq16801259255525557865.png" alt="$(K_p-26)^2-4(144+24K_p)$"> is negative or zero, then the real part is just <img src="main_shortened_eq17875175006890874484.png" alt="$\frac{26-K_p}{2}$">, and our system is obviously stable for all <img src="main_shortened_eq17398091149511190845.png" alt="$K_p &gt; 26$">. If the discriminant is positive however, the root will be strictly real, and we need to verify that they are still negative, by checking that</p><p><img src="main_shortened_eq07819020585747354540.png" alt="$$-(K_p-26) &gt; \sqrt{(K_p-26)^2-4(144+24K_p)}, \quad \forall K_p &gt; 26  $$"></p><p><img src="main_shortened_eq03169800326830071518.png" alt="$$(-K_p+26)^2 &gt; (K_p-26)^2-4(14+24K_p)$$"></p><p><img src="main_shortened_eq03617593921508333556.png" alt="$${K_p}^2-52K_p+26^2 &gt; K_p^2-52K_p+26^2-576-96K_p $$"></p><p><img src="main_shortened_eq09683383854390709098.png" alt="$$ 96K_p &gt; 576$$"></p><p><img src="main_shortened_eq11098867472344562919.png" alt="$$ K_p &gt; 6$$"></p><p>This inequality will obviously also hold for <img src="main_shortened_eq17398091149511190845.png" alt="$K_p &gt; 26$">. We have now shown that all the roots have negative real parts for all <img src="main_shortened_eq17398091149511190845.png" alt="$K_p &gt; 26$">, so that our system is stable.</p><h2 id="50">f/g/h)</h2><p>For the proportional controller i chose Kp = 147 (see full assignment in attachments):</p><pre class="codeinput">Kp = 147;
+closed_loop = (Kp*s+Kp*24)/(s^2+(Kp-26)*s+(144+24*Kp));
+<span class="comment">% We have verified that the poles of our new system are all negative real part. This means the system stable, and we can verify this</span>
+<span class="comment">% by viewing the step response of the closed loop system:</span>
+
+step(closed_loop);
+close;
+[y,t]=step(closed_loop); <span class="comment">%save the output values to check steady state</span>
+SS_error = abs(1-y(end))
+<span class="comment">%verifying that the new system is stable</span>
+isstable(closed_loop)
+close;
+pzplot(closed_loop)
+</pre><pre class="codeoutput">
+SS_error =
+
+    0.0389
+
+
+ans =
+
+  logical
+
+   1
+
+</pre><img vspace="5" hspace="5" src="main_shortened_05.png" alt=""> <p>Thus we have verified that our control system is stable and reaches a steady state error of 3.89%, with a steady state value of</p><p><img src="main_shortened_eq14091226657208791758.png" alt="$$(1-\frac{3.89}{100}) = 0.9611 $$"></p><h2 id="53">i)</h2><p>The new system is stable, as shown by the poles and step response.</p><h2 id="54">Task 3</h2><h2 id="55">a/b) System transfer functions</h2><p>I round off the entries in A to make my life a bit easier.</p><pre class="codeinput">A = [0 0 1 0;
+     0 0 0 1;
+     0 181 0 0;
+     0 782 0 0;];
+
+B = [0;
+     0;
+     921;
+     2921;];
+
+C = [1 0 0 0;
+     0 1 0 0];
+
+D = [0;
+     0];
+
+sys_ss = ss(A, B, C, D);
+s = tf(<span class="string">'s'</span>);
+</pre><p>The easy way:</p><pre class="codeinput">H_matlab = tf(sys_ss);
+</pre><p>Manually:</p><pre class="codeinput">I = eye(4); <span class="comment">% 4x4 identity</span>
+H_manual = C*((I*s-A)\B);
+</pre><p>We now have the transfer function for our plant, one computed with tf() and one manually.</p><pre class="codeinput">H_matlab
+</pre><pre class="codeoutput">
+H_matlab =
+ 
+  From input to output...
+       921 s^2 + 1.636e-12 s - 1.915e05
+   1:  --------------------------------
+        s^4 - 1.066e-14 s^3 - 782 s^2
+ 
+                2921
+   2:  -----------------------
+       s^2 - 1.066e-14 s - 782
+ 
+Continuous-time transfer function.
+
+</pre><pre class="codeinput">H_manual
+
+<span class="comment">% Before I move on, i remove the extremely small coefficients in the transfer functions, as they have virtually no impact)</span>
+<span class="comment">% I verified this by checking that the poles didnt change.</span>
+close;
+
+H_theta = (921*s^2 - 191500)/(s^4 - 782*s^2); <span class="comment">%theta transfer function</span>
+H_alpha  = (2921)/(s^2-782); <span class="comment">%alpha transfer function</span>
+H = [H_theta;H_alpha];
+</pre><pre class="codeoutput">
+H_manual =
+ 
+  From input to output...
+                  921 s^2 - 1.243e-10 s - 1.915e05
+   1:  ------------------------------------------------------
+       s^4 - 1.495e-14 s^3 - 782 s^2 + 6.066e-13 s - 1.97e-29
+ 
+         2921
+   2:  ---------
+       s^2 - 782
+ 
+Continuous-time transfer function.
+
+</pre><p>We end up with the following plant transfer functions for <img src="main_shortened_eq08288499342375314727.png" alt="$\theta$"> and <img src="main_shortened_eq14221827199139923399.png" alt="$\alpha$">:</p><p><img src="main_shortened_eq06902877413151203981.png" alt="$$ H_{\theta} = \frac{921s^2-191500}{s^4-782s^2} $$"></p><p><img src="main_shortened_eq04878841976953582082.png" alt="$$ H_{\alpha} = \frac{2921}{s^2-782} $$"></p><h2 id="65">c) Plant step response</h2><pre class="codeinput">close;
+subplot(2,1,1);
+step(H_theta, <span class="string">'b'</span>)
+title(<span class="string">'Theta response'</span>)
+subplot(2,1,2);
+step(H_alpha, <span class="string">'r'</span>)
+title(<span class="string">'Alpha response'</span>)
+</pre><img vspace="5" hspace="5" src="main_shortened_06.png" alt=""> <h2 id="66">d) poles</h2><p>Checking the poles with pzplot() and pole():</p><pre class="codeinput">close;
+pzplot(H);
+pole(sys_ss)
+</pre><pre class="codeoutput">
+ans =
+
+         0
+         0
+   27.9643
+  -27.9643
+
+</pre><img vspace="5" hspace="5" src="main_shortened_07.png" alt=""> <p>Our system has four poles:</p><p><img src="main_shortened_eq14783081464788292407.png" alt="$$ \left[0, 0, 27.9643, -27.9643 \right]$$"></p><p>The system has poles in the right half-plane, and is therefore unstable.</p><pre class="codeinput">close;
+
+<span class="comment">%%e) Feedback gain vector</span>
+<span class="comment">% We need to find a gain vector $\vec{k} = [k_1, k_2, k_3, k_4]$ Which brings the poles/eigenvalues to -10, for our system:</span>
+</pre><p><img src="main_shortened_eq06981214810727670745.png" alt="$$\dot{\vec{x}} = A\vec{x} + \vec{B}T$$"></p><p>We can do this by using the acker() commands, specifying our desired pole locations</p><pre class="codeinput">P = [-10, -10, -10, -10];
+K = acker(A, B, P)
+A_CL = A-B*K;
+</pre><pre class="codeoutput">
+K =
+
+   -0.0522    0.4896   -0.0209    0.0203
+
+</pre><h2 id="74">f) new A matrix</h2><p>We have found a K matrix/vector such that the poles of our new system is stable (this requires full state estimation). We did this by implicitly defining our control input <img src="main_shortened_eq14047577632175690031.png" alt="$T$"> as: <img src="main_shortened_eq07953541254255080806.png" alt="$$ T = r-\vec{k}\vec{x} $$"></p><p>Where <img src="main_shortened_eq04958265083611378313.png" alt="$r$"> is the reference/input. In this way, our new system becomes:</p><p><img src="main_shortened_eq10059462875918277029.png" alt="$$ \dot{\vec{x}} = A\vec{x} + B(r-\vec{k}\vec{x}) $$"></p><p><img src="main_shortened_eq09373070931777475057.png" alt="$$ \dot{\vec{x}} = A\vec{x} + Br-B\vec{k}\vec{x} $$"></p><p><img src="main_shortened_eq11079920944155942280.png" alt="$$ \dot{\vec{x}} = (A-B\vec{k})\vec{x} + Br $$"></p><p>We now arrive at a new state space representation of our system, by defining our modified A-matrix <img src="main_shortened_eq07361163329006191725.png" alt="$A_{CL}$">:</p><p><img src="main_shortened_eq16766185452446188281.png" alt="$$ A_{CL} = (A-B\vec{k}   )$$"></p><p><img src="main_shortened_eq03203028600960734622.png" alt="$$ \dot{\vec{x}} = A_{CL}\vec{x} + Br $$"></p><p><img src="main_shortened_eq18354736113742838567.png" alt="$$ \vec{y} = C\vec{x} $$"></p><pre class="codeinput">A_CL
+</pre><pre class="codeoutput">
+A_CL =
+
+         0         0    1.0000         0
+         0         0         0    1.0000
+   48.0887 -269.9112   19.2355  -18.6771
+  152.5159 -648.0887   61.0064  -59.2355
+
+</pre><h2 id="83">g) step responses</h2><pre class="codeinput">new_sys = ss(A_CL, B, C, D);
+</pre><pre class="codeinput">close;
+step(new_sys);
+</pre><img vspace="5" hspace="5" src="main_shortened_08.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Reguleringsteknikk eksamen
+%% Task 1
+%% a) State-space representation
+% Differential equation describing the tank water level:
+%%
+% $$ \frac{d}{dt}H = \frac{bV-a\sqrt{H}}{A} $$
+%%
+% This ode is non-linear in $\sqrt{H}$. However, we can approximate this by a
+% first order taylor expansion/linearization in a neighbourhood $H_0 + \hat{H}$ around the stationary point $H_0$:
+%%
+% $$ \sqrt{H_0 + \hat{H}} \approx \sqrt{H_0} + \frac{1}{2\sqrt{H_0}}\cdot (H-H_o) $$
+%%
+% With this linearization we arrive at the linear ODE:
+%% 
+% $$ \frac{dH}{dt} =\frac{b}{A} V - \frac{a}{2A} \sqrt{H_0} (H-H_0) - \frac{a\sqrt{H_0}}{A} $$
+%% State Space Representation
+% We can find the state space representation of this system (ignoring the non-homogeneous part):
+%%
+% 
+% $$ \frac{d}{dt} H = \left[\matrix{ - \frac{a}{2A \sqrt{H_0}}} \right] H + \left[\matrix{ \frac{b}{A}} \right]V $$
+% 
+%%
+% Alternatively, with our constants and linearization point:
+%%
+%
+% $$ \dot{H} = \left[\matrix{ - \frac{3\sqrt{10}}{80}} \right] H + \left[\matrix{ \frac{1}{3}} \right]V $$
+%
+%% 
+% Our state space consists of a one-dimensional state vector H and a one-dimensional control vector V
+
+%% b) simulink implementations
+%%
+% Open-loop non-linear system:
+%%
+%
+% <<open_loop_nonlinear.png>>
+%
+%%
+% Open-loop linear system:
+%%
+%
+% <<open_loop_linear.png>>
+%
+
+%% c) PID design
+% Now we develop a complete PID controller for our plant using the transfer function of the linearized model.
+
+close;
+s = tf('s');
+
+A = 24; b = 8; a = 18; %water tank parameters
+tf_linear = (b/A)/(s+1/(2*sqrt(10))*(a/A)); %defining transfer function as given in the task
+step(tf_linear);
+
+
+%%
+% Now we tune all the gains to achieve the desired response
+Kp = 15;
+Ki = 5;
+Kd = 1;
+
+H = tf_linear; %plant transfer function
+C = Kp + Ki/s + Kd*s; %PID transfer function
+
+CH = C*H; %closed loop transfer function
+closed_tf = CH/(CH+1);
+step(closed_tf);
+
+info = stepinfo(closed_tf);
+overshoot     = info.Overshoot;
+rise_time     = info.RiseTime;
+settling_time = info.SettlingTime;
+
+% Display results
+fprintf('Overshoot: %.2f%%\n', overshoot);
+fprintf('Rise Time: %.2f s\n', rise_time);
+fprintf('Settling Time: %.2f s\n', settling_time);
+grid on;
+
+%% c/d) Applying the control to the non-linear and linearized plants in simulink
+% With our conservative gains [Kp, Ki, Kd] = [15, 5, 1] We achieved a nice response.
+%
+% Here I plot the response for a setpoint of 10 an an initial tank level of 9, for both the non-linear and linear systems.
+%
+
+%%
+%
+% <<high_level_closed_loop.png>>
+%
+%%
+%
+% <<closed_loop_response.png>>
+%
+%%
+% The response of the linear system here is not just a scaled version of the closed_loop unit step response, since the setpoint and initial conditions arent just scaled versions of the unit step (theres a translation in the setpoint).
+% If we instead  plotted the response of a setpoint of 10 and an initial condition of 0, the response of the linearized system would be identical to a scaled version of the unit step response.
+
+% We also see again that the linear approximation starts out good, but diverges from the true state of the system as we get further away from the linearization point.
+
+%% Task 2
+%% a) poles and zeros
+% the transfer function, with canard deflection as input and pitch altitude as output, is given as:
+%%
+% $$ \frac{\theta}{\delta_c} = \frac{s+24}{(s-8)(s-18)} $$
+%
+% This system is clearly unstable, as both poles are positive real numbers (8 and 18).
+% We can verify this by using pzplot and looking at the poles:
+
+s = tf('s');
+sys = (s+24)/((s-8)*(s-18));
+pzplot(sys);
+
+%% b) Step response
+close;
+step(sys);
+
+%% c) Stability
+% The output of our system blows up to infinity, so it is clearly unstable. 
+% The open-loop system does not satisfy BIBO, and requires closed loop control to become stable.
+
+%% d) P-control equivalent transfer function
+% We add a proportional control and find an equivalent transfer function for the whole system.
+% I use the simulink block diagram to help find the expression for the new system:
+%%
+% 
+% <<tf_with_proportional_gain.png>>
+% 
+
+
+%%
+% $$ \theta = K_p \theta_c H(s) - K_p\theta H(s)$$
+%%
+% $$\theta(K_p H(s) + 1) = \theta_c K_p H(s)$$
+%%
+% $$\frac{\theta}{\theta_c} = \frac{K_p H(s)}{K_p H(s) + 1}$$
+%%
+% I insert the plant model $H(s)$ to obtain the full closed loop transfer function:
+%%
+% $$\frac{\theta}{\theta_c} = \frac{K_p \frac{s+24}{s^2-26+144}}{K_p \frac{s+24}{s^2-26+144} + 1} $$
+%%
+% Finally, simplifying the fraction gives:
+%%
+% $$\frac{\theta}{\theta_c} = \frac{K_p s+ K_p 24}{s^2+(K_p-26)s+(144+24K_p)} $$
+
+%% e) Kp-stable values
+% We can show this mathematically by finding the Kp
+% values for which all our poles are in the negative half-plane (negative real part). To do this we look we analyze the denominator of our transfer function with the quadratic formula.
+%% 
+% equation:
+%%
+% $$ s^2 + (K_p-26)s+(144+24Kp)= 0$$
+%% 
+% We need the real parts of the roots to both be negative. The roots are found by the quadratic equation:
+%%
+% $$ \frac{-(K_p-26)\pm \sqrt{(K_p-26)^2-4(144+24K_p)}}{2} $$
+%%
+% The strictly real part is $\frac{26-K_p}{2}$.
+% If the discriminant $(K_p-26)^2-4(144+24K_p)$ is negative or zero, then the real part is just $\frac{26-K_p}{2}$, and our system is obviously stable for all $K_p > 26$.
+% If the discriminant is positive however, the root will be strictly real, and we need to verify that they are still negative, by checking that 
+%%
+% $$-(K_p-26) > \sqrt{(K_p-26)^2-4(144+24K_p)}, \quad \forall K_p > 26  $$
+%%
+% $$(-K_p+26)^2 > (K_p-26)^2-4(14+24K_p)$$
+%%
+% $${K_p}^2-52K_p+26^2 > K_p^2-52K_p+26^2-576-96K_p $$
+%%
+% $$ 96K_p > 576$$
+%%
+% $$ K_p > 6$$
+%%
+% This inequality will obviously also hold for $K_p > 26$. We have now shown that all the roots have negative real parts for all $K_p > 26$, so that our system is stable. 
+
+%% f/g/h)
+% For the proportional controller i chose Kp = 147 (see full assignment in attachments):
+Kp = 147;
+closed_loop = (Kp*s+Kp*24)/(s^2+(Kp-26)*s+(144+24*Kp));
+% We have verified that the poles of our new system are all negative real part. This means the system stable, and we can verify this
+% by viewing the step response of the closed loop system:
+
+step(closed_loop);
+close;
+[y,t]=step(closed_loop); %save the output values to check steady state
+SS_error = abs(1-y(end))
+%verifying that the new system is stable
+isstable(closed_loop)
+close;
+pzplot(closed_loop)
+
+
+%%
+% Thus we have verified that our control system is stable and reaches a steady state error of 3.89%, with a steady state value of
+%%
+% $$(1-\frac{3.89}{100}) = 0.9611 $$
+
+%% i)
+% The new system is stable, as shown by the poles and step response.
+
+
+%% Task 3
+%% a/b) System transfer functions
+%%
+% I round off the entries in A to make my life a bit easier.
+A = [0 0 1 0;
+     0 0 0 1;
+     0 181 0 0;
+     0 782 0 0;];
+
+B = [0;
+     0;
+     921;
+     2921;];
+
+C = [1 0 0 0; 
+     0 1 0 0];
+
+D = [0;
+     0];
+
+sys_ss = ss(A, B, C, D);
+s = tf('s');
+%%
+% The easy way:
+H_matlab = tf(sys_ss);
+%%
+% Manually:
+%%
+I = eye(4); % 4x4 identity
+H_manual = C*((I*s-A)\B); 
+%%
+% We now have the transfer function for our plant, one computed with tf() and one manually.
+H_matlab
+%%
+H_manual
+
+% Before I move on, i remove the extremely small coefficients in the transfer functions, as they have virtually no impact)
+% I verified this by checking that the poles didnt change.
+close;
+
+H_theta = (921*s^2 - 191500)/(s^4 - 782*s^2); %theta transfer function
+H_alpha  = (2921)/(s^2-782); %alpha transfer function
+H = [H_theta;H_alpha];
+
+%%
+% We end up with the following plant transfer functions for $\theta$ and $\alpha$:
+%%
+% $$ H_{\theta} = \frac{921s^2-191500}{s^4-782s^2} $$
+%%
+% $$ H_{\alpha} = \frac{2921}{s^2-782} $$
+
+%% c) Plant step response
+close;
+subplot(2,1,1);
+step(H_theta, 'b')
+title('Theta response')
+subplot(2,1,2);
+step(H_alpha, 'r')
+title('Alpha response')
+
+%% d) poles
+% Checking the poles with pzplot() and pole():
+%%
+close;
+pzplot(H);
+pole(sys_ss)
+
+%%
+% Our system has four poles:
+%%
+% $$ \left[0, 0, 27.9643, -27.9643 \right]$$
+%%
+% The system has poles in the right half-plane, and is therefore unstable.
+%%
+close;
+
+%%e) Feedback gain vector
+% We need to find a gain vector $\vec{k} = [k_1, k_2, k_3, k_4]$ Which brings the poles/eigenvalues to -10, for our system:
+%%
+% $$\dot{\vec{x}} = A\vec{x} + \vec{B}T$$
+%%
+% We can do this by using the acker() commands, specifying our desired pole locations
+P = [-10, -10, -10, -10];
+K = acker(A, B, P)
+A_CL = A-B*K;
+
+%% f) new A matrix
+% We have found a K matrix/vector such that the poles of our new system is stable (this requires full state estimation). 
+% We did this by implicitly defining our control input $T$ as:
+% $$ T = r-\vec{k}\vec{x} $$
+%%
+% Where $r$ is the reference/input.
+% In this way, our new system becomes:
+%% 
+% $$ \dot{\vec{x}} = A\vec{x} + B(r-\vec{k}\vec{x}) $$
+%%
+% $$ \dot{\vec{x}} = A\vec{x} + Br-B\vec{k}\vec{x} $$
+%%
+% $$ \dot{\vec{x}} = (A-B\vec{k})\vec{x} + Br $$
+
+%%
+% We now arrive at a new state space representation of our system, by defining our modified A-matrix $A_{CL}$:
+%%
+% $$ A_{CL} = (A-B\vec{k}   )$$
+%%
+% $$ \dot{\vec{x}} = A_{CL}\vec{x} + Br $$
+%%
+% $$ \vec{y} = C\vec{x} $$
+
+A_CL
+
+%% g) step responses
+new_sys = ss(A_CL, B, C, D);
+%%
+close;
+step(new_sys);
+##### SOURCE END #####
+--></body></html>
